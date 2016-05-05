@@ -13,7 +13,7 @@ public:
   virtual const char* getName() const = 0;
 
   // Returns the product's store id.
-  virtual unsigned int getProductId() = 0;
+  virtual unsigned int getProductId() const = 0;
 
   // Sets the product's description.
   virtual void setDescription(const char* description) = 0;
@@ -30,8 +30,12 @@ public:
   // Sets the product's price.
   virtual void setPrice(float price) = 0;
 
-  // Returns the product's price.
+  // Returns the product's raw price.
   virtual float getPrice() const = 0;
+
+  // Returns the product's discounted price.
+  // Note: Returns the raw price if the product is not on sale.
+  virtual float getDiscountedPrice() const = 0;
 
   // Enables or disables a sale for this product.
   virtual void setOnSale(bool onSale) = 0;

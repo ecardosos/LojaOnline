@@ -13,7 +13,4 @@ public:
   // 2. Process command.
   // 3. Updates interface accordingly.
   void run() override;
-
-private:
-  IMainWindow* _mainWindow;
 };

@@ -3,9 +3,11 @@
 #include <string>
 #include <iostream>
 
+#include "Store\Manager.h"
+
 Application::Application()
 {
-  _mainWindow = new MainWindow();
+
 }
 
 void Application::run()
@@ -15,7 +17,7 @@ void Application::run()
     // Warning: Windows-only! Clears screen to make browsing less confusing.
     system("cls");
 
-    _mainWindow->draw();
+    Manager::instance().mainWindow()->draw();
 
     std::cout << "[Q] Leave store." << std::endl << std::endl;
     std::cout << "Please input store command: ";
@@ -27,6 +29,6 @@ void Application::run()
       return;
     }
 
-    _mainWindow->processCommand(static_cast<const char*>(command.c_str()));
+    Manager::instance().mainWindow()->processCommand(static_cast<const char*>(command.c_str()));
   }
 }

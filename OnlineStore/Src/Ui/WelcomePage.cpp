@@ -7,20 +7,9 @@ WelcomePage::WelcomePage()
 
 }
 
-void WelcomePage::setCallback(std::function<bool(const char*)> elementCb)
-{
-  // Do nothing.
-}
-
 bool WelcomePage::processCommand(const char* c)
 {
-  // Do nothing.
-  return true;
-}
-
-void WelcomePage::draw()
-{
-  std::cout << this;
+  return false;
 }
 
 std::ostream& operator<<(std::ostream& os, const WelcomePage* browsingArea)

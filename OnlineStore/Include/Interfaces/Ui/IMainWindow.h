@@ -4,7 +4,12 @@ enum PageType
 {
   HomePage,
   ProductPage,
-  Cart
+  CartPage,
+  CheckoutPage,
+  CheckoutCompletePage,
+  CheckoutFailPage,
+  OrdersPage,
+  VerifyOrderPage
 };
 
 // Responsible for storing and managing the store's interface elements.

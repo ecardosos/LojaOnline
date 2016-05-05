@@ -7,7 +7,6 @@
 class Product : public IProduct
 {
   // Output operator; prints this product's data.
-  friend std::ostream& operator<<(std::ostream& os, const Product& product);
   friend std::ostream& operator<<(std::ostream& os, const Product* product);
 
 public:
@@ -20,7 +19,7 @@ public:
   const char* getName() const override;
 
   // Returns the product's store id.
-  unsigned int getProductId() override;
+  unsigned int getProductId() const override;
 
   // Sets the product's description.
   void setDescription(const char* description) override;
@@ -39,6 +38,10 @@ public:
 
   // Returns the product's price.
   float getPrice() const override;
+
+  // Returns the product's discounted price.
+  // Note: Returns the raw price if the product is not on sale.
+  float getDiscountedPrice() const override;
 
   // Enables or disables a sale for this product.
   void setOnSale(bool onSale) override;

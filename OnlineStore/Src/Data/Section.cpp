@@ -1,25 +1,30 @@
 #include "Data\Section.h"
-#include "Interfaces\Data\IProduct.h"
 
+#include <cassert>
 #include <random>
+
+#include "Interfaces\Data\IProduct.h"
 
 Section::Section(const char* name)
 {
+  assert(name != nullptr);
+
   _name = name;
   _onSale = false;
 }
 
 Section::~Section()
 {
+  for (unsigned int i = 0; i < _products.size(); i++)
+  {
+    delete _products.at(i);
+  }
   _products.clear();
 }
 
 void Section::setName(const char* name)
 {
-  if (name == nullptr)
-  {
-    return;
-  }
+  assert(name);
 
   _name = name;
 }
@@ -90,7 +95,6 @@ bool Section::onSale() const
 }
 
 // Modern C++ approach for generating random numbers within a range.
-// Source: https://stackoverflow.com/questions/7560114/random-number-c-in-some-range
 float Section::_calculateDiscount(float min, float max)
 {
   std::random_device rd; // Obtain a random number from hardware

@@ -24,12 +24,13 @@ public:
   // Draws the contents of the main window.
   void draw() override;
 
-
   // Forbidden methods.
   MainWindow(const MainWindow& m)     = delete;
   void operator=(const MainWindow& m) = delete;
 
 private:
+  const static std::string s_windowSeparator;
+  const static std::string s_sectionSeparator;
 
   // Upper window buttons (e.g., Home, Cart).
   std::vector<IToolbarElement*> _toolbarElements;

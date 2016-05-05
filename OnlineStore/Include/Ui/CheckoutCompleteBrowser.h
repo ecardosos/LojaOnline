@@ -4,13 +4,13 @@
 
 #include <iostream>
 
-class WelcomePage : public IBrowsingArea
+class CheckoutCompleteBrowser : public IBrowsingArea
 {
   // Output operator; prints page data.
-  friend std::ostream& operator<<(std::ostream& os, const WelcomePage* browsingArea);
+  friend std::ostream& operator<<(std::ostream& os, const CheckoutCompleteBrowser* browsingArea);
 
 public:
-  WelcomePage();
+  CheckoutCompleteBrowser();
 
   // Calls the element callback to process a command.
   // A command is a simple character input entered by the user while browsing the store.
@@ -18,6 +18,6 @@ public:
   bool processCommand(const char* c) override;
 
   // Forbidden methods.
-  WelcomePage(const WelcomePage& p) = delete;
-  void operator=(const WelcomePage& p) = delete;
+  CheckoutCompleteBrowser(const CheckoutCompleteBrowser& p) = delete;
+  void operator=(const CheckoutCompleteBrowser& p)          = delete;
 };

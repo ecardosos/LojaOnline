@@ -1,9 +1,16 @@
 #include "Data\Product.h"
 
+#include <cassert>
+#include <iomanip>
+
 unsigned int Product::s_globalId = 0;
 
 Product::Product(const char* name, const char* description, const char* manufacturer, float initialPrice, unsigned int initialStock)
 {
+  assert(name != nullptr);
+  assert(description != nullptr);
+  assert(manufacturer != nullptr);
+
   _name = name;
   _description = description;
   _manufacturer = manufacturer;
@@ -18,6 +25,8 @@ Product::Product(const char* name, const char* description, const char* manufact
 
 void Product::setName(const char* name)
 {
+  assert(name);
+
   _name = name;
 }
 
@@ -26,13 +35,15 @@ const char* Product::getName() const
   return _name.c_str();
 }
 
-unsigned int Product::getProductId()
+unsigned int Product::getProductId() const
 {
   return _productId;
 }
 
 void Product::setDescription(const char* description)
 {
+  assert(description);
+
   _description = description;
 }
 
@@ -43,6 +54,8 @@ const char* Product::getDescription() const
 
 void Product::setManufacturer(const char* manufacturer)
 {
+  assert(manufacturer);
+
   _manufacturer = manufacturer;
 }
 
@@ -59,6 +72,11 @@ void Product::setPrice(float price)
 float Product::getPrice() const
 {
   return _price;
+}
+
+float Product::getDiscountedPrice() const
+{
+  return _onSale ? (_price - _price * _discount) : _price;
 }
 
 void Product::setOnSale(bool onSale)
@@ -96,44 +114,20 @@ unsigned int Product::getItemStock() const
   return _itemStock;
 }
 
-std::ostream& operator<<(std::ostream& os, const Product& product)
-{
-  os << product.getName() << " (" << product.getManufacturer() << ")" << std::endl
-     << product.getDescription() << std::endl
-     << "US$ " << (product.onSale() ? (product.getPrice() - product.getPrice() * product.getDiscount()) : product.getPrice());
-
-  // Discount information is only added if product is on sale.
-  if (product.onSale())
-  {
-    os << " (" << (product.getDiscount()) * 100.0f << "% OFF of US$ " << product.getPrice() << ")" << std::endl;
-  }
-  else
-  {
-    os << std::endl;
-  }
-
-  os << "Items in stock: " << product.getItemStock() << std::endl;
-
-  return os;
-}
-
 std::ostream& operator<<(std::ostream& os, const Product* product)
 {
+  // Display only two decimal digits.
+  os << std::setprecision(2) << std::fixed;
+
   os << product->getName() << " (" << product->getManufacturer() << ")" << std::endl
      << product->getDescription() << std::endl
-     << "Price: US$ " << (product->onSale() ? (product->getPrice() -  product->getPrice() * product->getDiscount()) : product->getPrice());
+     << "Price: US$ " << product->getDiscountedPrice();
 
   // Discount information is only added if product is on sale.
   if (product->onSale())
   {
-    os << " (" << (product->getDiscount()) * 100.0f << "% OFF of US$ " << product->getPrice() << ")" << std::endl;
+    os << " (" << (product->getDiscount()) * 100.0f << "% OFF of US$ " << product->getPrice() << ")";
   }
-  else
-  {
-    os << std::endl;
-  }
-
-  os << "Items in stock: " << product->getItemStock() << std::endl;
 
   return os;
 }

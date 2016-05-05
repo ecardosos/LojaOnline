@@ -1,13 +1,15 @@
 #pragma once
 
+#include "Store\OrderManager.h"
 #include "Store\ProductDataManager.h"
+#include "Ui\MainWindow.h"
 
-class IUserDataManager;
-
-// Specifies the interface for the one and only instance of a Manager.
+// Specifies the access to the one and only Manager instance.
 class Manager
 {
 public:
+  ~Manager();
+
   // Returns the global Manager instance.
   static Manager& instance()
   {
@@ -15,8 +17,14 @@ public:
     return instance;
   }
 
-  // Returns the IProductDataManager used to access product related data.
+  // Returns the IOrderManager, used to retrieve order data.
+  IOrderManager* orderManager() const;
+
+  // Returns the IProductDataManager, used to access product related data.
   IProductDataManager* productDataManager() const;
+
+  // Returns the IMainWindow instance.
+  IMainWindow* mainWindow() const;
 
   // Forbidden methods.
   Manager(const Manager& m) = delete;
@@ -25,6 +33,7 @@ public:
 private:
   Manager();
 
-  //IUserDataManager* _userDataManager;
+  IOrderManager* _orderManager;
   IProductDataManager* _productDataManager;
+  IMainWindow* _mainWindow;
 };

@@ -12,17 +12,10 @@ class ProductBrowser : public IBrowsingArea
 public:
   ProductBrowser();
 
-  // Assigns the element callback.
-  // The callback is called by processCommand when the user enters a command.
-  void setCallback(std::function<bool(const char*)> elementCb) override;
-
   // Calls the element callback to process a command.
   // A command is a simple character input entered by the user while browsing the store.
   // Returns true if the given command could be processed, false otherwise.
   bool processCommand(const char* c) override;
-
-  // Draws the page's contents.
-  void draw() override;
 
   // Sets the current store section to be displayed by this page.
   void setCurrentSection(const char* section);
@@ -30,8 +23,10 @@ public:
   // Returns the current store section.
   const char* getCurrentSection() const;
 
+  // Forbidden methods.
+  ProductBrowser(const ProductBrowser& p) = delete;
+  void operator=(const ProductBrowser& p) = delete;
+
 private:
   std::string _currentSection;
-
-  std::function<bool(const char*)> _elementCb;
 };

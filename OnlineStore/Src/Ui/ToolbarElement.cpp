@@ -1,5 +1,7 @@
 #include "Ui\ToolbarElement.h"
 
+#include <cassert>
+
 ToolbarElement::ToolbarElement()
 {
   _title = "No title";
@@ -9,6 +11,9 @@ ToolbarElement::ToolbarElement()
 
 ToolbarElement::ToolbarElement(const char* title, const char* command)
 {
+  assert(title);
+  assert(command);
+
   _title = title;
   _command = command;
   _elementCb = nullptr;
@@ -26,7 +31,7 @@ bool ToolbarElement::processCommand(const char* c)
     return false;
   }
 
-  if (std::strcmp(_command.c_str(), c) != 0)
+  if (c == nullptr || std::strcmp(_command.c_str(), c) != 0)
   {
     return false;
   }
@@ -36,6 +41,11 @@ bool ToolbarElement::processCommand(const char* c)
 
 void ToolbarElement::setTitle(const char* title)
 {
+  if (title == nullptr)
+  {
+    return;
+  }
+
   _title = title;
 }
 
@@ -46,6 +56,11 @@ const char* ToolbarElement::getTitle() const
 
 void ToolbarElement::setCommand(const char* command)
 {
+  if (command == nullptr)
+  {
+    return;
+  }
+
   _command = command;
 }
 

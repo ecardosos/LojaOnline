@@ -7,7 +7,4 @@ class IBrowsingArea : public IUiElement
 {
 public:
   virtual ~IBrowsingArea() {}
-
-  // Draws the page's contents.
-  virtual void draw() = 0;
 };
